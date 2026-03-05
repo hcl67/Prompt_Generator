@@ -3,7 +3,11 @@
 <head>
   <meta charset="utf-8">
   <style>
-    body { padding: 16px; font-family: -apple-system, system-ui, sans-serif; background: #fff; color: #202124; }
+    body { padding: 16px; font-family: -apple-system, system-ui, sans-serif; background: #f8f9fa; color: #202124; }
+    .nav-tabs { display: flex; gap: 8px; margin-bottom: 16px; border-bottom: 1px solid #dadce0; padding-bottom: 8px; }
+    .tab { padding: 6px 12px; font-size: 13px; cursor: pointer; border-radius: 15px; border: 1px solid #dadce0; background: #fff; }
+    .tab.active { background: #1a73e8; color: white; border-color: #1a73e8; }
+    .card { background: #fff; padding: 16px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
     h3 { display: flex; align-items: center; gap: 8px; color: #1a73e8; font-size: 18px; margin: 0 0 16px 0; padding-bottom: 12px; border-bottom: 1px solid #f1f3f4; }
     .field { margin-bottom: 14px; }
     label.title { display: block; font-size: 11px; color: #5f6368; font-weight: bold; margin-bottom: 6px; text-transform: uppercase; }
@@ -13,35 +17,82 @@
     .toggle-container { display: flex; align-items: center; margin: 18px 0; cursor: pointer; user-select: none; width: fit-content; }
     .toggle-container input { width: 18px; height: 18px; margin: 0 10px 0 0; cursor: pointer; flex-shrink: 0; }
     .toggle-text { font-size: 13px; color: #3c4043; font-weight: 500; line-height: 1; white-space: nowrap; }
+    .checkbox-grid { display: grid; grid-template-columns: 1fr 1fr;  gap: 4px 6px;  margin: 10px 0; }
     .btn-group { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
     button { width: 100%; padding: 12px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
     #copy-btn { background: #1a73e8; color: white; border: none; }
     #copy-btn:hover { background: #1765cc; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
     #jump-btn { background: white; color: #1a73e8; border: 1px solid #dadce0; }
     #jump-btn:hover { background: #f8f9fa; border-color: #1a73e8; }
-    
+    .hidden { display: none; }
     .hint { font-size: 11px; color: #70757a; margin-top: 15px; line-height: 1.5; background: #f8f9fa; padding: 10px; border-radius: 6px; }
   </style>
 </head>
 <body>
-  <h3><img src="icon.png" width="20" height="20">防剧透观剧伴侣</h3>
-  <div class="field">
-    <label class="title">剧名</label>
-    <input type="text" id="showName" placeholder="例如：Fallout">
+  <div class="nav-tabs">
+    <div class="tab active" data-target="spoiler-tool">防剧透观剧伴侣</div>
+    <div class="tab" data-target="meme-tool">中老年表情包</div>
   </div>
-  <div class="field">
-    <label class="title">当前进度</label>
-    <input type="text" id="episode" placeholder="例如：S01E01">
-  </div>
-  <div class="field">
-    <label class="title">我的疑问</label>
-    <textarea id="userQuestion" rows="4" placeholder="问问 AI，避开剧透..."></textarea>
-  </div>
+  <div class="card">
+    <div id="spoiler-tool">
+      <h3>🎬防剧透观剧伴侣</h3>
+      <div class="field">
+        <label class="title">剧名</label>
+        <input type="text" id="showName" placeholder="例如：Fallout">
+      </div>
+      <div class="field">
+        <label class="title">当前进度</label>
+        <input type="text" id="episode" placeholder="例如：S01E01">
+      </div>
+      <div class="field">
+        <label class="title">我的疑问</label>
+        <textarea id="userQuestion" rows="4" placeholder="问问 AI，避开剧透..."></textarea>
+      </div>
+      <label class="toggle-container">
+        <input type="checkbox" id="loreMode">
+        <span class="toggle-text">开启深度模式 (结合原著背景)</span>
+      </label>
+    </div>
+    <div id="meme-tool" class="hidden">
+      <h3>🌸 老年人表情包助手</h3>
+      <div class="field">
+        <label class="title">祝福/文字内容</label>
+        <input type="text" id="memeText" placeholder="例如：早安，我的朋友">
+      </div>
+      <label class="title">常见元素 (勾选你的诚挚祝福)</label>
+      <div class="checkbox-grid">
+        <label class="toggle-container">
+          <input type="checkbox" class="meme-opt" value="五彩斑斓的3D艺术字">
+          <span class="toggle-text">🌈 艺术字</span>
+        </label>
+        
+        <label class="toggle-container">
+          <input type="checkbox" class="meme-opt" value="盛开的荷花或牡丹">
+          <span class="toggle-text">🌺 鲜花</span>
+        </label>
 
-  <label class="toggle-container">
-    <input type="checkbox" id="loreMode">
-    <span class="toggle-text">开启深度模式 (结合原著背景)</span>
-  </label>
+        <label class="toggle-container">
+          <input type="checkbox" class="meme-opt" value="壮丽的山水背景">
+          <span class="toggle-text">🏔️ 山水</span>
+        </label>
+
+        <label class="toggle-container">
+          <input type="checkbox" class="meme-opt" value="闪烁的动态金光特效">
+          <span class="toggle-text">✨ 闪光</span>
+        </label>
+
+        <label class="toggle-container">
+          <input type="checkbox" class="meme-opt" value="透明感十足的茶杯">
+          <span class="toggle-text">☕ 饮茶</span>
+        </label>
+
+        <label class="toggle-container">
+          <input type="checkbox" class="meme-opt" value="高饱和度的自然背景">
+          <span class="toggle-text">🌳 自然</span>
+        </label>
+      </div>
+    </div>
+  </div>
 
   <div class="btn-group">
     <button id="copy-btn">生成并复制 Prompt</button>
