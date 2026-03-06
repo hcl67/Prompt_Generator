@@ -17,7 +17,7 @@ document.getElementById('copy-btn').onclick = function() {
   navigator.clipboard.writeText(prompt).then(() => {
     const btn = document.getElementById('copy-btn');
     btn.innerText = "✅ 指令已复制";
-    setTimeout(() => btn.innerText = "复制防剧透 Prompt", 2000);
+    setTimeout(() => btn.innerText = "生成并复制 Prompt", 2000);
   });
 };
 
